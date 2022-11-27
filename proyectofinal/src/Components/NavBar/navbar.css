@@ -1,4 +1,4 @@
-nav{
+nav {
     height: var(--navbarheight);
 }
 
@@ -21,8 +21,12 @@ nav{
 }
 
 .navbar-nav a {
+<<<<<<< HEAD
     display: flex;
     color : black;
+=======
+    color: var(--colorSecundario);
+>>>>>>> 864bbcb958df8b1acc508facda69cf6f0612f3fb
     font-size: 16px;
     align-items: center;
     font-weight: bold;
@@ -59,14 +63,19 @@ nav{
     color: #000;
     border-radius: 50px;
     font-size: 20px;
-    border:1px solid #000;
+    border: 1px solid #000;
     transition: all .7s ease;
     background-color: var(--colorSecundario);
-} 
+}
 
 .navbar .lupa {
+<<<<<<< HEAD
     width:45px;
     height:37px;
+=======
+    width: 40px;
+    height: 40px;
+>>>>>>> 864bbcb958df8b1acc508facda69cf6f0612f3fb
     position: absolute;
     right: 0;
     top: 0;
@@ -75,7 +84,7 @@ nav{
     cursor: pointer;
     transition: .5s;
     align-items: center;
-    } 
+}
 
 
     .lupa div{
@@ -96,28 +105,38 @@ nav{
 }
 
 .navbar .form-group:hover input {
-        background-color: var(--colorSecundario);
-        width: 350px;
-    }
+    background-color: var(--colorSecundario);
+    width: 350px;
+}
 
- .navbar .form-group:hover svg {
-        transform: rotate(-360deg);
-    }
+.navbar .form-group:hover svg {
+    transform: rotate(-360deg);
+}
 
-.status-highlight{
+.status-highlight {
     border-bottom: 3px solid rgb(255, 78, 78);
     color: #ffffff;
 }
 
-.status-highlight a{
+.status-highlight a {
     color: #ffffff !important;
 }
 
-.status-idle{
+.status-idle {
     border-bottom: 0;
     border-radius: 0;
 }
 
-.status-idle a{
-    color : var(--colorSecundario);
+.status-idle a {
+    color: var(--colorSecundario);
 }
+
+button {
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+.subrayado {
+    border-bottom: 3px solid #990000 !important;
+}
+

@@ -15,6 +15,7 @@ const Rutas = (props) => {
     <BrowserRouter>
           {children}
         <Routes>
+          {/* cargar enlaces solo si el usuario esta registrado */}
           <Route exact path="/" element={<Login/>}/>
           <Route path="/Team2-CaC2022/" element={<Login/>}/>
           <Route exact path="/Home" element={<Principal/>}/>          

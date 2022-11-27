@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./ListaHorizontal.css";
-import { MainContext } from "../../Context/MainContext";
+import MainContext from "../../Context/MainContext";
 
 export default function ListaHorizontal(props) {
   let { typeFilm, language } = useContext(MainContext);
@@ -21,7 +21,7 @@ export default function ListaHorizontal(props) {
         if (process.env.REACT_APP_ISDEBUG) console.log("d", d.results);
       });
     })();
-  }, []);
+  }, [typeFilm]);
 
 const fila = document.querySelector('#lista-' + props.id);
 
