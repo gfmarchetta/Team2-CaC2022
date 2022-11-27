@@ -26,7 +26,7 @@ const [nombre, setNombre] = useState("");
           value={nombre}
         />
         <div className="icono">
-          <Link to={"/buscar/" + nombre} className="lupa"><FontAwesomeIcon icon={faSearch} className="Icono" /></Link>{' '}
+          <Link to={"/buscar/" + nombre} className="lupa"><div><FontAwesomeIcon icon={faSearch} className="Icono" /></div></Link>{' '}
           </div>
 
       </fieldset>

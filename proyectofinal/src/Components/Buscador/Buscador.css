@@ -20,8 +20,8 @@
 .lupa {
     display: flex;
     position: relative;
-    width:40px;
-    height:40px;
+    width:37px;
+    height:37px;
     background-color: var(--colorPrincipal) !important;
     margin: 2px;
     border-radius: 50px !important;
@@ -29,7 +29,6 @@
     justify-content: center;
     align-items: center
 }
-
 
   
 

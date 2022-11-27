@@ -10,17 +10,19 @@ export default function NavBar(props) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand to="#home"><img alt="Logo" src={props.src} width={props.size} className="d-inline-block align-top"/></Navbar.Brand>
+        <Link to="/Home"><img alt="Logo" src={props.src} width={props.size} className="d-inline-block align-top"/></Link>
         <Nav className="me-auto">
-          <Link className="nav-link" to="/Home" activeClassname>Home</Link>
-          <Link className="nav-link" to="../Series">Series</Link>
-          <Link className="nav-link" to="../Peliculas">Peliculas</Link>
-          <Link className="nav-link" to="../LogIn">Login</Link>
+          <div class="botonera">
+            <Link className="nav-link" to="/Home" activeClassname>Home</Link>
+            <Link className="nav-link" to="../Series">Series</Link>
+            <Link className="nav-link" to="../Peliculas">Peliculas</Link>
+            <Link className="nav-link" to="../LogIn">Login</Link>
+          </div>
         </Nav>
         <ButtonGroup className="buttonGroup">
         <Buscador />
           </ButtonGroup>
-          <Button type="submit" className="Login">LOGIN</Button>{' '}  
+          <Button type="submit" className="Login"><div>LOGIN</div></Button>{' '}  
       </Container>
     </Navbar>
   );
