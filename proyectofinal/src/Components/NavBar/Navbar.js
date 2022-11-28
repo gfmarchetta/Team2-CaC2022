@@ -35,37 +35,24 @@ export default function NavBar(props) {
       <Container>
         <Link to="/Home"><img alt="Logo" src={props.src} width={props.size} className="d-inline-block align-top"/></Link>
         <Nav className="me-auto">
-<<<<<<< HEAD
-          <div class="botonera">
-            <Link className="nav-link" to="/Home" activeClassname>Home</Link>
-            <Link className="nav-link" to="../Series">Series</Link>
-            <Link className="nav-link" to="../Peliculas">Peliculas</Link>
-            <Link className="nav-link" to="../LogIn">Login</Link>
-          </div>
-=======
           {
             user?
             <>
             <Link className="nav-link" to="/Home" activeClassname>{LANGUAGES[language].NAVBAR.HOME}</Link>
-            <button className={typeFilm && typeFilm == TIPO_SERIE? "subrayado" : ""} onClick={setSeries}>{LANGUAGES[language].NAVBAR.SERIES}</button>
-            <button className={typeFilm && typeFilm == TIPO_PELICULA? "subrayado" : ""} onClick={setFilms}>{LANGUAGES[language].NAVBAR.MOVIES}</button>
+            <button className={typeFilm && typeFilm === TIPO_SERIE? "subrayado" : ""} onClick={setSeries}>{LANGUAGES[language].NAVBAR.SERIES}</button>
+            <button className={typeFilm && typeFilm === TIPO_PELICULA? "subrayado" : ""} onClick={setFilms}>{LANGUAGES[language].NAVBAR.MOVIES}</button>
             <button onClick={logOut}>LogOut</button>
             </>
             :
             <Link className="nav-link" to="../LogIn">{LANGUAGES[language].LOGIN.HEADING_LOGIN}</Link>
           }
           
->>>>>>> 864bbcb958df8b1acc508facda69cf6f0612f3fb
         </Nav>
         <ButtonGroup className="buttonGroup">
         <Buscador />
           </ButtonGroup>
-<<<<<<< HEAD
-          <Button type="submit" className="Login"><div>LOGIN</div></Button>{' '}  
-=======
           <Idioma></Idioma>
           <Button type="submit" className="Login">{user? user : LANGUAGES[language].LOGIN.HEADING_LOGIN}</Button>{' '}  
->>>>>>> 864bbcb958df8b1acc508facda69cf6f0612f3fb
       </Container>
     </Navbar>
   );

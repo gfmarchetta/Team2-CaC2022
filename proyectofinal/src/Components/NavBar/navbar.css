@@ -21,12 +21,7 @@ nav {
 }
 
 .navbar-nav a {
-<<<<<<< HEAD
-    display: flex;
-    color : black;
-=======
     color: var(--colorSecundario);
->>>>>>> 864bbcb958df8b1acc508facda69cf6f0612f3fb
     font-size: 16px;
     align-items: center;
     font-weight: bold;
@@ -69,13 +64,8 @@ nav {
 }
 
 .navbar .lupa {
-<<<<<<< HEAD
-    width:45px;
-    height:37px;
-=======
     width: 40px;
     height: 40px;
->>>>>>> 864bbcb958df8b1acc508facda69cf6f0612f3fb
     position: absolute;
     right: 0;
     top: 0;
