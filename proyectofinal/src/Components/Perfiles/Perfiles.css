@@ -1,0 +1,34 @@
+.contenedor_perfiles {
+    width: 1200px;
+    margin: 40px auto 60px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--colorFondo);
+}
+
+.pagina_perfiles {
+    height: calc(100vh - 75px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfiles_titulo {
+    font-size: 65px;
+}
+
+.boton_perfiles {
+    font-size: 20px;
+    border: 2px solid #616161;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #616161;
+    margin: 0 10px ;
+}
+
+.boton_perfiles:hover {
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+}

@@ -1,5 +1,7 @@
 import app from "../../Services/Firebase";
 import { useNavigate } from "react-router-dom";
+import { UserProfileModel } from "../../Models/UserProfileModel";
+import { addElement } from "../../Services/Firestore";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -13,12 +15,15 @@ import "./login.css";
 import { useContext } from "react";
 import MainContext from "../../Context/MainContext";
 import { LANGUAGES } from "../../Constants/languages";
+import { useState } from "react";
+import Registro from "../Registro/Registro";
+import { Button } from "react-bootstrap";
 
 export const Login = () => {
   const googleAuthProvider = new GoogleAuthProvider();
   const navigate = useNavigate();
-
-  const { language, user, changeUser } = useContext(MainContext);
+  const [show, setShow] = useState(false);
+  const { language, changeLanguage, changeUser,toggleDarkMode } = useContext(MainContext);
 
   const SignIn = (ev) => {
     ev.preventDefault();
@@ -27,33 +32,16 @@ export const Login = () => {
     ConnectWithEmail(email, password);
   };
 
-  const Register = (ev) => {
-    document.getElementById("error-register-password").style.visibility =
-      "hidden";
-    document.getElementById("error-register-email-existente").style.visibility =
-      "hidden";
-    document.getElementById("error-register-email-invalido").style.visibility =
-      "hidden";
-    ev.preventDefault();
-    const newUser = {
-      email: ev.target[0].value,
-      password: ev.target[1].value,
-      lang: ev.target[2].value,
-      logo: ev.target[3].value,
-    };
-    ConnectAndRegister(newUser);
-  };
-
   const ConnectWithEmail = (email, password) => {
     const auth = getAuth(app);
     const user = signInWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
         console.log("credentials OK", credentials);
-        const firebase_user = credentials.user;
+        const firebase_user = credentials.user.uid;
         // cargar user en contexto
-        changeUser(null, email);
+        changeUser(null, firebase_user);
       })
-      .then(() => navigate(`/Home`))
+      .then(() => navigate(`/Perfiles`))
       .catch((error) => {
         document.getElementById("error-signin").style.visibility = "visible";
         console.log(error.code);
@@ -72,29 +60,6 @@ export const Login = () => {
       .catch((error) => {
         console.log(error.code);
         console.log(error.message);
-      });
-  };
-
-  const ConnectAndRegister = (newUser) => {
-    const auth = getAuth(app);
-    createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-      .then(() => {
-        // cargar user en contexto
-      })
-      .catch((error) => {
-        console.log(error.code);
-        if (error.code === "auth/weak-password") {
-          document.getElementById("error-register-password").style.visibility =
-            "visible";
-        } else if (error.code === "auth/email-already-in-use") {
-          document.getElementById(
-            "error-register-email-existente"
-          ).style.visibility = "visible";
-        } else {
-          document.getElementById(
-            "error-register-email-invalido"
-          ).style.visibility = "visible";
-        }
       });
   };
 
@@ -121,110 +86,75 @@ export const Login = () => {
   return (
     <>
       <div className="fondo">
-        <div className="contenedor">
-          <h1>{LANGUAGES[language].LOGIN.TITLE}</h1>
-          <h3>{LANGUAGES[language].LOGIN.SUBTITLE}</h3>
-          <p>{LANGUAGES[language].LOGIN.DESCRIPTION}</p>
-          <h2 className="mt-4">Ingrese</h2>
-          <p style={{ backgroundColor: "#005500" }}>{LANGUAGES[language].LOGIN.INPUT_EXAMPLE}</p>
-          <form className="formulario" id="signin" onSubmit={SignIn}>
-            <legend>
-              <label>Email:</label>{" "}
+        <div className="degrade">
+          <div className="contenedor">
+            <div style={{margin: '125px 0'}}>
+              <h1>{LANGUAGES[language].LOGIN.TITLE}</h1>
+              <h2>{LANGUAGES[language].LOGIN.SUBTITLE}</h2>
+              <p>{LANGUAGES[language].LOGIN.DESCRIPTION}</p>
+            </div>
+            <form className="formulario" id="signin" onSubmit={SignIn}>
+              <legend>
+                <label>{LANGUAGES[language].REGISTER.INPUT_USERNAME}:</label>{" "}
+                <input
+                  type="email"
+                  className="input-email mt-2"
+                  id="input-email"
+                  placeholder={
+                    LANGUAGES[language].LOGIN.INPUT_PLACEHOLDER_EMAIL
+                  }
+                />
+              </legend>
+              <legend>
+                <label>{LANGUAGES[language].REGISTER.INPUT_PASS}:</label>{" "}
+                <input
+                  type="password"
+                  className="input-email mt-2"
+                  placeholder={LANGUAGES[language].LOGIN.INPUT_PLACEHOLDER_PASS}
+                />
+              </legend>
               <input
-                type="email"
-                className="input-email mt-2"
-                id="input-email"
-                placeholder={LANGUAGES[language].LOGIN.INPUT_PLACEHOLDER_EMAIL}
+                type="submit"
+                className="btn btn-danger btn-lg"
+                value="Sign In"
               />
-            </legend>
-            <legend>
-              <label>Cotraseña:</label>{" "}
-              <input type="password" className="input-email mt-2" placeholder={LANGUAGES[language].LOGIN.INPUT_PLACEHOLDER_PASS}/>
-            </legend>
-            <input
-              type="submit"
-              className="btn btn-danger btn-lg"
-              value="Sign In"
-            />
-            <span className="error signin" id="error-signin">
-              {LANGUAGES[language].LOGIN.INPUT_ERROR}
-            </span>
-          </form>
-          <p>
-            <button
-              className="btn btn-outline-light"
-              onClick={() => ConnectWithPopUp(googleAuthProvider)}
-            >
-              {LANGUAGES[language].LOGIN.GOOGLE}
-            </button>
-            <button
-              className="btn btn-outline-light"
-              onClick={ResetPassword}
-              href="#"
-            >
-              {LANGUAGES[language].LOGIN.RESTORE_PASS}
-            </button>
-          </p>
-          <span className="error reset-password" id="error-reset-password">
-            {LANGUAGES[language].LOGIN.MAIL_ERROR}
-          </span>
-          <span className="error email-sent" id="error-reset-sent">
-            {LANGUAGES[language].LOGIN.MAIL_SUCCESS}
-          </span>
-          <br />
-          <h2 className="mt-4">O Registrese</h2>
-          <form className="formulario" onSubmit={Register}>
-            <legend>
-              <label>Email:</label>
-              <input type="email" className="input-email form-control-lg" />
-            </legend>
-            <legend>
-              <label>Cotraseña:</label>
-              <input
-                type="password"
-                className="input-email mt-2  form-control-lg"
-              />
-              <p>mínimo 6 caracteres.</p>
-            </legend>
-            <span
-              className="error password-invalido"
-              id="error-register-password"
-            >
-              Hay un error, la contraseña debe tener minimo 6 caracteres.
-            </span>
-            <span
-              className="error email-existente"
-              id="error-register-email-existente"
-            >
-              Hay un error, este email ya existe.
-            </span>
-            <span
-              className="error email-invalido"
-              id="error-register-email-invalido"
-            >
-              Hay un error en este email.
-            </span>
-            <p style={{ backgroundColor: "#550000" }}>
-              ---Por ahora solo email y contraseña es suficiente---
+              <span className="error signin" id="error-signin">
+                {LANGUAGES[language].LOGIN.INPUT_ERROR}
+              </span>
+            </form>
+
+            <p>
+              <button
+                className="boton_login"
+                onClick={() => ConnectWithPopUp(googleAuthProvider)}
+              >
+                {LANGUAGES[language].LOGIN.GOOGLE}
+              </button>
+              <button
+                className="boton_login"
+                onClick={ResetPassword}
+                href="#"
+              >
+                {LANGUAGES[language].LOGIN.RESTORE_PASS}
+              </button>
             </p>
-            <legend>
-              <label>Idioma:</label>
-              <input type="text" className="input-lang  form-control-lg" />
-            </legend>
-            <legend>
-              <label>Edad:</label>
-              <input type="text" className="input-edad  form-control-lg" />
-            </legend>
-            <legend>
-              <label>Logo:</label>
-              <input type="text" className="input-logo  form-control-lg" />
-            </legend>
-            <input
-              type="submit"
-              className="btn btn-danger btn-lg"
-              value="Regístrese"
-            />
-          </form>
+            <p style={{ backgroundColor: "#005500" }}>
+              {LANGUAGES[language].LOGIN.INPUT_EXAMPLE}
+            </p>
+            <span className="error reset-password" id="error-reset-password">
+              {LANGUAGES[language].LOGIN.MAIL_ERROR}
+            </span>
+            <span className="error email-sent" id="error-reset-sent">
+              {LANGUAGES[language].LOGIN.MAIL_SUCCESS}
+            </span>
+            <br />
+            <hr />
+            <h3 className="mt-4 registrarse">
+              {LANGUAGES[language].REGISTER.HEADING_REGISTER_NEW} <button className="boton_registro" role='button' onClick={() => setShow(true)}>
+            {LANGUAGES[language].REGISTER.HEADING_REGISTER}</button>
+            </h3>
+            <Registro show={show} toggleShow={setShow}></Registro>
+          </div>
         </div>
       </div>
     </>

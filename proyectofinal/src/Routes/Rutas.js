@@ -6,6 +6,7 @@ import {NotFound} from '../Components/NotFound/NotFound';
 import {Login} from '../Components/LogIn/Login';
 import {Busqueda} from '../Components/Busqueda/Busqueda';
 import {Film} from '../Components/Film/Film';
+import Perfiles from '../Components/Perfiles/Perfiles';
 
 const Rutas = (props) => {
 
@@ -16,13 +17,14 @@ const Rutas = (props) => {
           {children}
         <Routes>
           {/* cargar enlaces solo si el usuario esta registrado */}
-          <Route exact path="/" element={<Login/>}/>
+          {/* <Route exact path="/" element={<Login/>}/> */}
           <Route path="/Team2-CaC2022/" element={<Login/>}/>
           <Route exact path="/Home" element={<Principal/>}/>          
           <Route path="/Login" element={<Login/>}/>         
           <Route path="/buscar/:palabra" element={<Busqueda/>}/>
           <Route path="/Category/:Catid" element={<Categoria/>}/>
           <Route path="/View/:movie_id" element={<Film/>}/>
+          <Route path="/Perfiles" element={<Perfiles/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
     </BrowserRouter>

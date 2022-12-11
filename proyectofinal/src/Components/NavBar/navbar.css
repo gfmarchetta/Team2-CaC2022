@@ -1,5 +1,6 @@
 nav {
     height: var(--navbarheight);
+    background-color: var(--colorFondo);
 }
 
 .botonera {
@@ -34,6 +35,7 @@ nav {
     background-color: var(--colorPrincipal) !important;
     font-weight: bold !important;
     border-radius: 2rem 2rem 0 2rem !important;
+<<<<<<< HEAD
     padding: 0;
     
 }
@@ -48,6 +50,9 @@ nav {
     align-items: center;
     padding: 10px;
     color: black;
+=======
+    width: 150px;
+>>>>>>> 89a6f2358e822e56ea25368d1d9b5390df707140
 }
 
 .navbar .InputBuscador {
@@ -122,7 +127,7 @@ nav {
 }
 
 button {
-    background-color: transparent !important;
+    background-color: transparent;
     border: 0 !important;
 }
 
@@ -130,3 +135,19 @@ button {
     border-bottom: 3px solid #990000 !important;
 }
 
+.contenedor_busqueda_darkmode {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    position: absolute !important;
+    left: 30px;
+    top: 10px;
+}
+
+@media (max-width: 950px){
+    .navbar-logo {
+        width: 150px;
+    }
+}
